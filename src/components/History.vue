@@ -13,9 +13,10 @@
         clearable
         solo
         dense
-        label="Search by URL / Code"
-        placeholder="Search by URL / Code"
+        label="Search by URL / Link"
+        placeholder="Search by URL / Link"
         class="px-4 mb-0"
+        :color="$vuetify.theme.dark ? 'orange' : '#e91e63'"
         v-if="$vuetify.breakpoint.mdAndUp"
         hide-details
         autocomplete="off"
@@ -34,7 +35,7 @@
     <ApolloQuery
       :query="require('../graphql/shortenedUrls.gql')"
       :variables="{ searchText }"
-      :pollInterval="5000"
+      :pollInterval="3000"
     >
       <template slot-scope="{ result: { loading, error, data } }">
         <!-- Result -->
@@ -43,6 +44,7 @@
             :headers="headers"
             :items="data ? data.shortenedURLs : []"
             :items-per-page="5"
+            :sort-by="'originalUrl'"
             :page.sync="page"
             calculate-widths
             fixed-header
@@ -62,14 +64,19 @@
               {{ timeAgo(item.lastVisited) }}
             </template>
             <template v-slot:[`item.shortenedId`]="{ item }">
-              <a :href="`${host}/${item.shortenedId}`" target="_blank">{{
-                item.shortenedId
-              }}</a>
+              <a
+                :href="`${host}/${item.shortenedId}`"
+                :style="{ color: $vuetify.theme.dark ? 'orange' : '#e91e63' }"
+                target="_blank"
+                >{{ item.shortenedId }}</a
+              >
             </template>
             <template v-slot:[`item.clickCount`]="{ item }">
               <v-chip
                 :color="
-                  item.clickCount > 0 ? 'orange darken--2' : 'grey lighten--2'
+                  item.clickCount > 0
+                    ? `${$vuetify.theme.dark ? 'orange' : '#e91e63'}`
+                    : 'grey lighten--2'
                 "
                 dark
                 >{{ item.clickCount }}</v-chip
@@ -135,7 +142,7 @@
     >
       <v-text-field
         v-model="searchText"
-        label="Search by URL / Code"
+        label="Search by URL / Link"
         placeholder="Search term"
         class="px-4 mb-4"
         hide-details
@@ -166,9 +173,9 @@ export default {
       searchText: "",
       snackbar: false,
       timeout: 2000,
-      host: "http://localhost:4000",
+      host: "https://bcurlshrt.herokuapp.com",
       headers: [
-        // { text: "ID", value: "id" },
+        { text: "ID", value: "id" },
         {
           text: "Original URL",
           align: "start",
@@ -203,7 +210,6 @@ export default {
   },
   methods: {
     deleteItem(item) {
-      console.log({ item });
       const { id } = item;
       this.$apollo.mutate({
         // Query
@@ -234,7 +240,6 @@ export default {
               searchText: "",
             },
           });
-          console.log({ data, id });
 
           const indexToDelete = data.shortenedURLs.findIndex(
             (x) => x.id === id
@@ -254,7 +259,6 @@ export default {
       });
     },
     copyLink(item) {
-      console.log({ item });
       const dummy = document.createElement("textarea");
 
       document.body.appendChild(dummy);
@@ -272,18 +276,18 @@ export default {
       "keypress",
       (e) => {
         const searchInput = document.querySelector("#searchInput");
-        console.log(document.activeElement, searchInput);
+
         if (
           e.key == "/" &&
           this.historyMode &&
-          document.activeElement !== searchInput
+          document.activeElement.id !== "searchInput"
         ) {
+          e.preventDefault();
           searchInput.focus();
         }
       },
       {
         capture: true,
-        passive: true,
       }
     );
   },

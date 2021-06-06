@@ -2,7 +2,9 @@
   <v-app>
     <v-app-bar app color="primary" height="64px" dark>
       <div class="d-flex align-center">
-        <h1><v-icon>mdi-link-variant</v-icon> Shrtnr</h1>
+        <a href="/" style="text-decoration: none; color: white"
+          ><h1><v-icon>mdi-link-variant</v-icon> Shrtnr</h1></a
+        >
       </div>
 
       <v-spacer></v-spacer>
@@ -15,7 +17,7 @@
       </v-switch>
       <v-btn
         :class="$vuetify.breakpoint.mdAndUp ? 'ml-4' : 'ml-0'"
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        href="https://github.com/Bankole2000/bcurlshortener"
         target="_blank"
         text
       >
