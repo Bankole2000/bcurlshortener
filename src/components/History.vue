@@ -101,11 +101,21 @@
                       <v-icon small> mdi-content-copy </v-icon>
                     </v-btn>
                   </template>
-                  <span>Copy Short link</span>
+                  <span>Copy Short Link</span>
                 </v-tooltip>
-                <v-btn icon @click="deleteItem(item)">
-                  <v-icon small> mdi-delete </v-icon>
-                </v-btn>
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      icon
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="deleteItem(item)"
+                    >
+                      <v-icon small> mdi-delete </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Delete Short Link</span>
+                </v-tooltip>
               </div>
             </template>
           </v-data-table>
