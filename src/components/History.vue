@@ -44,7 +44,8 @@
             :headers="headers"
             :items="data ? data.shortenedURLs : []"
             :items-per-page="5"
-            :sort-by="'originalUrl'"
+            :sort-by.sync="sortBy"
+            :sort-desc.sync="sortDesc"
             :page.sync="page"
             calculate-widths
             fixed-header
@@ -190,6 +191,8 @@ export default {
     return {
       timeAgo,
       page: 1,
+      sortBy: "clickCount",
+      sortDesc: true,
       message: "",
       pageCount: 0,
       searchText: "",

@@ -11,7 +11,12 @@
 
       <v-card-text class="pt-0" v-if="$vuetify.breakpoint.mdAndUp">
         <p class="mb-0 white--text">
-          <strong>Shrtnr</strong> is a simple <em>URL shortener</em> built with
+          <a @click="$emit('reloadPage')" class="footer-link"
+            ><strong
+              ><v-icon size="16">mdi-link-variant</v-icon> Shrtnr</strong
+            ></a
+          >
+          is a simple <em>URL shortener</em> built with
           <a href="https://vuejs.org" class="footer-link" target="_blank"
             ><v-icon small>mdi-vuejs</v-icon> Vue</a
           >,
@@ -41,8 +46,9 @@
             >Backend Api</a
           >
           deployed to
-          <a href="heroku.com" class="footer-link" target="_blank">Heroku</a>.
-          <br />Please clear up any useless/broken links after use, thanks 👋
+          <a href="https://heroku.com" class="footer-link" target="_blank"
+            >Heroku</a
+          >. <br />Please clear up any useless/broken links after use, thanks 👋
         </p>
       </v-card-text>
 
