@@ -12,5 +12,5 @@ git config user.email "techybanky@gmail.com"
 git config user.name "Bankole Esan"
 git add -A
 git commit -m "deploy"
-git push -f git@github.com:Bankole2000/bcurlshortener.git main:gh-pages
+git push -f http://github.com/Bankole2000/bcurlshortener.git main:gh-pages
 cd -
