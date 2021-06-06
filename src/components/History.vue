@@ -53,7 +53,13 @@
             :mobile-breakpoint="0"
           >
             <template v-slot:[`item.originalUrl`]="{ item }">
-              <span style="word-break: break-word">
+              <span
+                :style="{
+                  wordBreak: $vuetify.breakpoint.mdAndUp
+                    ? 'break-word'
+                    : 'normal',
+                }"
+              >
                 {{ item.originalUrl }}
               </span>
             </template>
@@ -126,7 +132,13 @@
         <div v-else class="no-result apollo">No result :(</div>
       </template>
     </ApolloQuery>
-    <v-snackbar top right v-model="snackbar" :timeout="timeout">
+    <v-snackbar
+      top
+      :right="$vuetify.breakpoint.mdAndUp"
+      :centered="$vuetify.breakpoint.smAndDown"
+      v-model="snackbar"
+      :timeout="timeout"
+    >
       {{ message }}
 
       <template v-slot:action="{ attrs }">
