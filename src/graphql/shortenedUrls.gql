@@ -1,0 +1,10 @@
+query shortenedURLs($searchText: String){
+  shortenedURLs(searchText: $searchText){
+    originalUrl
+    shortenedId
+    createdAt
+    clickCount
+    id
+    lastVisited
+  }
+}

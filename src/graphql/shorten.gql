@@ -1,0 +1,3 @@
+query shortenURL ($url: String!) {
+  shortenURL(url: $url) 
+}
