@@ -2,7 +2,13 @@
   <v-app>
     <v-app-bar app color="primary" height="64px" dark>
       <div class="d-flex align-center">
-        <a href="/" style="text-decoration: none; color: white"
+        <a
+          @click="
+            () => {
+              window.location.reload();
+            }
+          "
+          style="text-decoration: none; color: white"
           ><h1><v-icon>mdi-link-variant</v-icon> Shrtnr</h1></a
         >
       </div>
